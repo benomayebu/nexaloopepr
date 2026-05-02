@@ -17,7 +17,7 @@ const DEFAULT_DATA = {
 };
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "heroVariant": "type",
+  "heroVariant": "data",
   "resultsLayout": "table",
   "wizardMode": "stepped",
   "density": "spacious",
