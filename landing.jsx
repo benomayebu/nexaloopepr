@@ -44,16 +44,16 @@ function HeroTypographic({ onStart, density }) {
   const pad = density === "compact" ? "72px 0 56px" : "120px 0 96px";
   return (
     <section className="nx-hero" style={{ padding: pad }}>
-      <div className="nx-eyebrow">EU Fashion Compliance · Refashion 2026</div>
+      <div className="nx-eyebrow">EU Fashion Compliance · EPR Calculator</div>
       <h1 className="nx-display">
-        Calculate your France<br />
-        Refashion EPR fee<br />
+        Calculate your EU<br />
+        EPR fee,<br />
         <span className="nx-display-accent">in eight minutes.</span>
       </h1>
       <p className="nx-lead">
         Stop doing this in spreadsheets. Enter your quarterly materials data and get
         your eco‑contribution fee breakdown instantly — plus a declaration summary
-        you can download and use.
+        you can download and use. Starting with France Refashion, more markets coming.
       </p>
       <div className="nx-cta-row">
         <button className="nx-btn nx-btn-primary nx-btn-lg" onClick={onStart}>
@@ -85,7 +85,7 @@ function HeroDataForward({ onStart }) {
         <div>
           <div className="nx-eyebrow">EU Fashion Compliance</div>
           <h1 className="nx-display nx-display-tight">
-            Your Refashion<br/>fee, in minutes.
+            Your EPR fee,<br/>in minutes.
           </h1>
           <p className="nx-lead">
             Enter quarterly materials. Get an indicative eco-contribution
@@ -95,14 +95,14 @@ function HeroDataForward({ onStart }) {
             Calculate my EPR fee <span className="nx-arrow">→</span>
           </button>
           <p className="nx-disclaimer-text" style={{ marginTop: 24 }}>
-            Indicative Refashion 2025 rates — verify against official table.
+            France Refashion 2025 rates (indicative) · Netherlands coming soon.
           </p>
         </div>
 
         <div className="nx-hero-card">
           <div className="nx-hero-card-head">
             <div>
-              <div className="nx-mono-label">Sample · Lumen Atelier · Q1 2026</div>
+              <div className="nx-mono-label">Sample · Lumen Atelier · Q1 2026 · France</div>
               <div className="nx-hero-card-amount">€137.42</div>
             </div>
             <div className="nx-tag nx-tag-mod">−13% mod.</div>
@@ -175,7 +175,7 @@ function HeroIllustrative({ onStart }) {
           <span className="nx-display-accent">closes here.</span>
         </h1>
         <p className="nx-lead">
-          Quarterly Refashion EPR calculations, without the spreadsheet panic.
+          Quarterly EPR calculations across EU markets, without the spreadsheet panic.
           Eight minutes from materials in to declaration out.
         </p>
         <button className="nx-btn nx-btn-primary nx-btn-lg" onClick={onStart}>
@@ -219,11 +219,11 @@ function Footer() {
         <div>
           <Logo size="sm" />
           <p className="nx-footer-blurb">
-            Built for EU-facing fashion brands navigating Refashion compliance.
+            Built for EU-facing fashion brands navigating EPR compliance across markets.
           </p>
         </div>
         <div className="nx-footer-meta">
-          <div>This tool provides indicative estimates only. Always verify with official Refashion rates.</div>
+          <div>This tool provides indicative estimates only. Always verify with official EPR scheme rates for each market.</div>
           <div className="nx-footer-tiny">© 2026 NEXA Loop. All rights reserved. · hello@nexaloop.com</div>
         </div>
       </div>
