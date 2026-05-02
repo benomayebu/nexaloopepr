@@ -251,7 +251,7 @@ function PDFPreviewPanel({ result, data, onPrint }) {
 }
 
 // Replace with your Formspree endpoint after creating a form at formspree.io
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrejeewe";
 
 function EmailCapture({ data, onSubmitted }) {
   const [email, setEmail] = useStateR("");
