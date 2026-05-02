@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>NEXA Loop — Refashion EPR Declaration Summary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --indigo-700: #3730A3;
+    --indigo-900: #1E1B4B;
+    --slate-700: #334155;
+    --slate-500: #64748B;
+    --slate-400: #94A3B8;
+    --slate-200: #E2E8F0;
+    --slate-100: #F1F5F9;
+    --slate-50: #F8FAFC;
+    --green-700: #166534;
+    --amber-800: #92400E;
+    --amber-50: #FFFBEB;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 32px;
+    font-family: "Inter Tight", system-ui, sans-serif;
+    color: var(--slate-700);
+    background: var(--slate-50);
+  }
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 24px 48px -24px rgba(15,23,42,0.18);
+  }
+  .bar {
+    background: var(--indigo-700);
+    color: white;
+    padding: 18px 36px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 16px;
+    letter-spacing: -0.005em;
+  }
+  .bar .tag {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    background: rgba(255,255,255,0.18);
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+  .body { padding: 36px; }
+  h2 {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 16px;
+    color: var(--indigo-900);
+    margin: 22px 0 10px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+  }
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    border-bottom: 1px solid var(--slate-200);
+    padding-bottom: 22px;
+    margin-bottom: 24px;
+  }
+  .meta > div { display: flex; flex-direction: column; gap: 4px; }
+  .meta span {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--slate-500);
+  }
+  .meta strong { color: var(--indigo-900); font-size: 14px; font-weight: 500; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    text-align: left; padding: 10px 12px; border-bottom: 1.5px solid var(--indigo-900);
+    font-family: "JetBrains Mono", monospace; font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--slate-700); font-weight: 600;
+  }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--slate-100); font-variant-numeric: tabular-nums; }
+  th.num, td.num { text-align: right; }
+  tr.total td { border-top: 2px solid var(--indigo-900); border-bottom: 0; padding-top: 12px; color: var(--indigo-900); font-weight: 600; }
+  .mod {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 24px;
+    background: var(--slate-50);
+    border-radius: 6px;
+    padding: 18px 22px;
+    margin: 14px 0;
+  }
+  .mod-list { margin: 6px 0 0; padding-left: 18px; font-size: 12px; line-height: 1.7; }
+  .mod-net { text-align: right; }
+  .mod-val {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 32px;
+    color: var(--indigo-900);
+    font-weight: 500;
+  }
+  .label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--slate-500);
+  }
+  .notice {
+    background: var(--amber-50);
+    border: 1px solid #FDE68A;
+    border-radius: 6px;
+    padding: 14px 18px;
+    font-size: 12px;
+    color: var(--amber-800);
+    line-height: 1.6;
+    margin: 18px 0;
+  }
+  .foot {
+    display: flex; justify-content: space-between;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    color: var(--slate-500);
+    border-top: 1px solid var(--slate-200);
+    padding-top: 14px;
+    margin-top: 16px;
+    letter-spacing: 0.02em;
+  }
+  .toolbar {
+    max-width: 800px;
+    margin: 0 auto 16px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px;
+    color: var(--slate-500);
+  }
+  .toolbar button {
+    background: var(--indigo-700);
+    color: white;
+    border: 0;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .good { color: var(--green-700); }
+  .warn { color: var(--amber-800); }
+  @media print {
+    body { background: white; padding: 0; }
+    .toolbar { display: none; }
+    .page { box-shadow: none; border-radius: 0; }
+    @page { margin: 14mm; size: A4; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <span>Press Cmd/Ctrl + P to save as PDF</span>
+  <button onclick="window.print()">Print / Save as PDF</button>
+</div>
+
+<div class="page">
+  <div class="bar">
+    <span>NEXA Loop — Refashion EPR Declaration Summary</span>
+    <span class="tag">indicative</span>
+  </div>
+  <div class="body" id="body">
+    <p>Loading…</p>
+  </div>
+</div>
+
+<script>
+function fmtEUR(n) {
+  return new Intl.NumberFormat("en-GB", { style: "currency", currency: "EUR", minimumFractionDigits: 2 }).format(n || 0);
+}
+function fmtKg(n) {
+  return new Intl.NumberFormat("en-GB", { maximumFractionDigits: 2 }).format(n || 0);
+}
+function fmtPct(n) {
+  if (!n) return "—";
+  const sign = n > 0 ? "+" : "−";
+  return sign + Math.abs(Math.round(n * 100)) + "%";
+}
+
+const BONUS_LABELS = {
+  "2year_durability": "Designed to last at least 2 years",
+  "repairability_score": "Carries a repairability score",
+  "mono_material": "Mono-material (single fibre type)",
+  "certified_material": "GOTS, GRS, or equivalent certification",
+};
+const BONUS_VAL = { "2year_durability": -0.05, "repairability_score": -0.05, "mono_material": -0.10, "certified_material": -0.08 };
+const MALUS_LABELS = {
+  "hazardous_substances": "Contains REACH-flagged hazardous substances",
+  "no_takeback": "No take-back / end-of-life programme",
+};
+const MALUS_VAL = { "hazardous_substances": 0.15, "no_takeback": 0.05 };
+
+let payload = null;
+try { payload = JSON.parse(sessionStorage.getItem("nx_print_payload")); } catch (e) {}
+
+function render() {
+  const body = document.getElementById("body");
+  if (!payload) {
+    body.innerHTML = '<p style="color:#92400E;text-align:center;padding:40px;">No declaration data found. Generate this from the calculator first.</p>';
+    return;
+  }
+  const r = payload.result;
+  const bonusItems = (payload.bonuses || []).map(k => `<li>${BONUS_LABELS[k]} <span class="good">−${Math.abs(BONUS_VAL[k]*100)}%</span></li>`).join("");
+  const malusItems = (payload.maluses || []).map(k => `<li>${MALUS_LABELS[k]} <span class="warn">+${MALUS_VAL[k]*100}%</span></li>`).join("");
+  const applied = (bonusItems + malusItems) || '<li style="color:#94A3B8;list-style:none;margin-left:-18px;">None applied</li>';
+
+  const rows = r.lineItems.map(li => `
+    <tr>
+      <td>${li.material}</td>
+      <td class="num">${fmtKg(li.weightKg)}</td>
+      <td class="num">€${li.ratePerTonne}</td>
+      <td class="num">${fmtPct(li.modulationFactor)}</td>
+      <td class="num">${fmtEUR(li.subtotal)}</td>
+    </tr>
+  `).join("");
+
+  body.innerHTML = `
+    <div class="meta">
+      <div><span>Brand</span><strong>${payload.brandName || "—"}</strong></div>
+      <div><span>Reporting period</span><strong>${payload.quarter} ${payload.year}</strong></div>
+      <div><span>Country</span><strong>France (Refashion)</strong></div>
+      <div><span>Calculated</span><strong>${payload.date}</strong></div>
+    </div>
+
+    <h2>Material breakdown</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Material</th>
+          <th class="num">Weight (kg)</th>
+          <th class="num">Rate (€/t)</th>
+          <th class="num">Adj. factor</th>
+          <th class="num">Subtotal (€)</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows}
+        <tr class="total">
+          <td><strong>TOTAL</strong></td>
+          <td class="num"><strong>${fmtKg(r.totalWeight)} kg</strong></td>
+          <td></td>
+          <td></td>
+          <td class="num"><strong>${fmtEUR(r.totalFee)}</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Modulation summary</h2>
+    <div class="mod">
+      <div>
+        <div class="label">Applied criteria</div>
+        <ul class="mod-list">${applied}</ul>
+      </div>
+      <div class="mod-net">
+        <div class="label">Net modulation factor</div>
+        <div class="mod-val">${fmtPct(r.modulationFactor)}</div>
+      </div>
+    </div>
+
+    <div class="notice">
+      <strong>Important.</strong> These figures are indicative estimates based on simplified
+      Refashion 2025 rate approximations. Verify all figures against the official Refashion
+      annual rate table at refashion.eu before filing your declaration. This document does
+      not constitute a legal compliance filing.
+    </div>
+
+    <div class="foot">
+      <span>Generated by NEXA Loop EPR Calculator · nexaloop.com · ${payload.date}</span>
+      <span>For questions: hello@nexaloop.com</span>
+    </div>
+  `;
+}
+render();
+</script>
+</body>
+</html>
