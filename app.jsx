@@ -66,6 +66,7 @@ function App() {
 
   function startCalc() {
     setStep(1);
+    window.track && window.track("wizard_start");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -122,7 +123,7 @@ function App() {
             <MaterialsScreen
               data={data}
               setData={setData}
-              onNext={() => setStep(3)}
+              onNext={() => { window.track && window.track("calculation_complete"); setStep(3); }}
               onBack={() => setStep(1)}
               density={tweaks.density}
               accent={tweaks.accent}
@@ -136,7 +137,7 @@ function App() {
           <SinglePageWizard
             data={data}
             setData={setData}
-            onNext={() => setStep(3)}
+            onNext={() => { window.track && window.track("calculation_complete"); setStep(3); }}
             onBack={() => setStep(0)}
             density={tweaks.density}
             accent={tweaks.accent}
@@ -156,7 +157,7 @@ function App() {
 
       {aboutOpen && <AboutOverlay onClose={() => setAboutOpen(false)} />}
 
-      <NexaTweaksPanel tweaks={tweaks} setTweaks={setTweaks} />
+      {window.__tweaksEnabled && <NexaTweaksPanel tweaks={tweaks} setTweaks={setTweaks} />}
     </div>
   );
 }

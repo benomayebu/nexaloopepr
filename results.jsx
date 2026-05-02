@@ -250,20 +250,43 @@ function PDFPreviewPanel({ result, data, onPrint }) {
   );
 }
 
+// Replace with your Formspree endpoint after creating a form at formspree.io
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+
 function EmailCapture({ data, onSubmitted }) {
   const [email, setEmail] = useStateR("");
   const [err, setErr] = useStateR("");
   const [done, setDone] = useStateR(false);
+  const [submitting, setSubmitting] = useStateR(false);
   const next = window.nextQuarter(data.quarter, data.year);
-  function submit(e) {
+  async function submit(e) {
     e.preventDefault();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setErr("Please enter a valid email");
       return;
     }
     setErr("");
-    setDone(true);
-    onSubmitted && onSubmitted(email);
+    setSubmitting(true);
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          email,
+          brand: data.brandName,
+          quarter: data.quarter,
+          year: data.year,
+        }),
+      });
+      if (!res.ok) throw new Error("submit_failed");
+      setDone(true);
+      window.track && window.track("email_captured");
+      onSubmitted && onSubmitted(email);
+    } catch (_) {
+      setErr("Something went wrong — try again or email hello@nexaloop.com");
+    } finally {
+      setSubmitting(false);
+    }
   }
   if (done) {
     return (
@@ -291,7 +314,9 @@ function EmailCapture({ data, onSubmitted }) {
           value={email}
           onChange={e => setEmail(e.target.value)}
         />
-        <button className="nx-btn nx-btn-primary" type="submit">Yes, remind me →</button>
+        <button className="nx-btn nx-btn-primary" type="submit" disabled={submitting}>
+          {submitting ? "Sending…" : "Yes, remind me →"}
+        </button>
       </div>
       {err && <div className="nx-err">{err}</div>}
       <div className="nx-fine">No spam. No marketing. Just your quarterly reminder.</div>
@@ -311,6 +336,7 @@ function ResultsScreen({ data, onRestart, layoutVariant }) {
   const dateStr = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 
   function openPrint() {
+    window.track && window.track("pdf_download");
     // Stash result + meta to sessionStorage so the print page can render it
     const payload = {
       brandName: data.brandName,
@@ -361,10 +387,10 @@ function ResultsScreen({ data, onRestart, layoutVariant }) {
       <PDFPreviewPanel result={result} data={data} onPrint={openPrint} />
 
       <div className="nx-results-actions">
-        <button className="nx-btn nx-btn-primary" onClick={openPrint}>
+        <button type="button" className="nx-btn nx-btn-primary" onClick={openPrint}>
           Download PDF declaration →
         </button>
-        <button className="nx-btn nx-btn-ghost" onClick={onRestart}>
+        <button type="button" className="nx-btn nx-btn-ghost" onClick={onRestart}>
           Start new calculation
         </button>
       </div>
